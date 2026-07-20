@@ -1,0 +1,8 @@
+{
+  "name": "Skin Fetcher",
+  "description": "Download Minecraft skins instantly using any username with a premium glassmorphism skin preview experience.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
