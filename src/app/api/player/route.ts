@@ -44,6 +44,7 @@ export async function GET(request: NextRequest) {
   }
 
   const profile = (await profileResponse.json()) as MojangProfile;
+
   const sessionResponse = await fetch(
     `https://sessionserver.mojang.com/session/minecraft/profile/${profile.id}`,
     { next: { revalidate: 60 } },
@@ -54,13 +55,19 @@ export async function GET(request: NextRequest) {
   }
 
   const session = (await sessionResponse.json()) as SessionProfile;
-  const textureValue = session.properties?.find((property) => property.name === "textures")?.value;
+
+  const textureValue = session.properties?.find(
+    (property) => property.name === "textures"
+  )?.value;
 
   if (!textureValue) {
     return NextResponse.json({ message: "Skin texture unavailable" }, { status: 404 });
   }
 
-  const textures = JSON.parse(Buffer.from(textureValue, "base64").toString("utf8")) as TexturePayload;
+  const textures = JSON.parse(
+    Buffer.from(textureValue, "base64").toString("utf8")
+  ) as TexturePayload;
+
   const skinUrl = textures.textures?.SKIN?.url?.replace(
     "http://textures.minecraft.net",
     "https://textures.minecraft.net",
@@ -76,7 +83,10 @@ export async function GET(request: NextRequest) {
     username: profile.name,
     uuid,
     skinUrl,
-    skinType: textures.textures?.SKIN?.metadata?.model === "slim" ? "Slim/Alex" : "Classic/Steve",
+    skinType:
+      textures.textures?.SKIN?.metadata?.model === "slim"
+        ? "Slim/Alex"
+        : "Classic/Steve",
     previewUrl: `https://mc-heads.net/body/${encodeURIComponent(profile.name)}/420`,
   });
 }
