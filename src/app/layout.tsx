@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -41,6 +42,7 @@ export default function RootLayout({
         className={`${manrope.variable} ${spaceGrotesk.variable} antialiased`}
       >
         {children}
+        <Analytics />
         {/* WARNING FOR AGENT: DO NOT REMOVE THIS SCRIPT */}
         <Script src="https://cdn.jsdelivr.net/gh/IdeavoAI/ideavo-scripts@latest/scripts/ideavo.min.js" />
       </body>
