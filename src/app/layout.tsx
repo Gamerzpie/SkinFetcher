@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     description: "Fetch, preview, and download Minecraft skins instantly by username.",
     type: "website",
   },
+  verification: {
+    google: "7raBhHxWnD9yZqD1HHuo8_CUem_7xRUnAcf8P1WKPok",
+  },
 };
 
 export default function RootLayout({
@@ -37,6 +40,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="7raBhHxWnD9yZqD1HHuo8_CUem_7xRUnAcf8P1WKPok"
+        />
+      </head>
       <body
         className={`${manrope.variable} ${spaceGrotesk.variable} antialiased`}
       >
