@@ -66,7 +66,7 @@ export const metadata: Metadata = {
 "Minecraft skin downloader free",
 "SkinGrabber Minecraft",
 "SkinGrabber Minecraft skin downloader",
-"SkinGrabber skin downloader"
+"SkinGrabber skin downloader",
     "Skin Fetcher",
   ],
   openGraph: {
