@@ -1,3 +1,4 @@
+```tsx
 import type { Metadata } from "next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
@@ -25,7 +26,8 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "SKIN FETCHER | Minecraft Skin Downloader",
-    description: "Fetch, preview, and download Minecraft skins instantly by username.",
+    description:
+      "Fetch, preview, and download Minecraft skins instantly by username.",
     type: "website",
   },
   verification: {
@@ -45,14 +47,21 @@ export default function RootLayout({
           name="google-site-verification"
           content="7raBhHxWnD9yZqD1HHuo8_CUem_7xRUnAcf8P1WKPok"
         />
+        <meta
+          name="google-site-verification"
+          content="x-INF2M7XaqodaqZH0OmfNj5dWXnG8rNk3y8rBkKvH4"
+        />
       </head>
+
       <body
         className={`${manrope.variable} ${spaceGrotesk.variable} antialiased`}
       >
         {children}
+
         {/* WARNING FOR AGENT: DO NOT REMOVE THIS SCRIPT */}
         <Script src="https://cdn.jsdelivr.net/gh/IdeavoAI/ideavo-scripts@latest/scripts/ideavo.min.js" />
       </body>
     </html>
   );
 }
+```
