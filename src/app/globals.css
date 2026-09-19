@@ -27,6 +27,78 @@
   box-sizing: border-box;
 }
 
+/* Themed Scrollbars */
+html,
+body,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.4) rgba(15, 17, 21, 0.75);
+}
+
+/* WebKit custom vertical & horizontal scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 17, 21, 0.75);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(16, 185, 129, 0.5) 0%,
+    rgba(16, 185, 129, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
+  border-radius: 9999px;
+  border: 2px solid rgba(15, 17, 21, 0.75);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #10b981 0%,
+    #059669 100%
+  );
+  border-color: rgba(15, 17, 21, 0.5);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #34d399;
+  box-shadow: 0 0 14px rgba(52, 211, 153, 0.7);
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(15, 17, 21, 0.9);
+}
+
+/* Themed Radix UI ScrollArea thumbs */
+[data-slot="scroll-area-scrollbar"] {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 9999px;
+}
+
+[data-slot="scroll-area-thumb"] {
+  background: linear-gradient(
+    180deg,
+    rgba(16, 185, 129, 0.5) 0%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-slot="scroll-area-thumb"]:hover {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
 html {
   scroll-behavior: smooth;
   background: var(--background);
@@ -146,16 +218,25 @@ img {
 
 .glass-nav {
   position: sticky;
-  top: 20px;
-  z-index: 20;
+  top: 14px;
+  z-index: 40;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   max-width: 1180px;
-  margin: 0 auto;
-  padding: 12px 14px;
-  border-radius: 28px;
+  margin: 0 auto 24px;
+  padding: 8px 12px;
+  border-radius: 9999px;
   animation: fadeUp 0.7s ease both;
+}
+
+@media (min-width: 640px) {
+  .glass-nav {
+    top: 20px;
+    padding: 10px 18px;
+    border-radius: 28px;
+  }
 }
 
 .brand,
@@ -166,10 +247,27 @@ img {
 }
 
 .brand {
-  gap: 10px;
+  gap: 8px;
   font-family: var(--font-space-grotesk), sans-serif;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .brand {
+    gap: 10px;
+  }
+  .brand-text {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+  }
 }
 
 .brand-mark {
@@ -183,8 +281,27 @@ img {
   font-size: 0.82rem;
 }
 
+.brand-logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .brand-logo-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+}
+
 .nav-links {
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .nav-links a,
@@ -195,13 +312,57 @@ img {
 }
 
 .nav-links a {
-  padding: 10px 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  min-height: 36px;
+  border: 1px solid transparent;
+}
+
+@media (min-width: 640px) {
+  .nav-links {
+    gap: 6px;
+  }
+  .nav-links a {
+    padding: 9px 16px;
+    font-size: 0.85rem;
+    min-height: 40px;
+  }
 }
 
 .nav-links a:hover,
 .glass-footer a:hover {
   color: white;
   background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-links a.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.nav-icon {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+@media (max-width: 380px) {
+  .nav-full-text {
+    display: none;
+  }
+  .brand-text {
+    font-size: 0.78rem;
+  }
+  .nav-links a {
+    padding: 6px 10px;
+    font-size: 0.74rem;
+  }
 }
 
 .hero-section {
@@ -698,7 +859,6 @@ img {
     padding-inline: 12px;
   }
 
-  .glass-nav,
   .glass-footer {
     align-items: stretch;
     flex-direction: column;

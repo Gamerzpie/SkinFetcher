@@ -1,6 +1,6 @@
 {
-  "name": "Skin Fetcher",
-  "description": "Download Minecraft skins instantly using any username with a premium glassmorphism skin preview experience.",
+  "name": "Skin Grabber",
+  "description": "Download Minecraft skins instantly using any username on skingrabber.bond with interactive 3D skin preview and HD downloads.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
