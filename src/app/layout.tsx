@@ -95,6 +95,7 @@ export const metadata: Metadata = {
     ],
   },
   other: {
+    "google-adsense-account": "ca-pub-8740692270988888",
     ...(adsenseId ? { "google-adsense-account": adsenseId } : {}),
   },
 };
