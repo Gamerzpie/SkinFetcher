@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { downloadImage } from "@/lib/download";
 
 interface CuratedSkin {
   username: string;
@@ -428,16 +429,14 @@ export function SkinsGallery() {
                   {/* Actions */}
                   <div className="pt-2 border-t border-white/10 flex flex-col gap-2">
                     <div className="grid grid-cols-2 gap-2">
-                      <a
-                        href={skinPngDownloadUrl}
-                        download={`${skin.username}-skin.png`}
-                        className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-emerald-500 text-black hover:bg-emerald-400 transition-colors shadow-md"
-                        target="_blank"
-                        rel="noreferrer"
+                      <button
+                        type="button"
+                        onClick={() => downloadImage(skinPngDownloadUrl, `${skin.username}-skin.png`)}
+                        className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-emerald-500 text-black hover:bg-emerald-400 active:scale-[0.99] transition-all shadow-md cursor-pointer"
                         title="Download raw 64x64 PNG Skin"
                       >
                         <ArrowDownToLine size={14} /> PNG
-                      </a>
+                      </button>
 
                       <Link
                         href={`/home?username=${encodeURIComponent(skin.username)}`}

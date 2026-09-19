@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Download, Home } from "lucide-react";
+import { Compass, Download, Home } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
 
   const isHome = pathname === "/" || pathname === "/home";
   const isDownloader = pathname === "/skindownloader";
+  const isSkins = pathname === "/skins";
 
   return (
     <nav className="glass-nav" aria-label="Primary navigation">
@@ -23,7 +24,7 @@ export function Navbar() {
         <span className="brand-text">SKIN GRABBER</span>
       </Link>
 
-      {/* Streamlined Core Navigation for Mobile, Tablet & PC */}
+      {/* Navigation for Mobile, Tablet & PC */}
       <div className="nav-links">
         <Link
           href="/home"
@@ -41,6 +42,16 @@ export function Navbar() {
           <Download size={14} className="nav-icon" />
           <span>
             <span className="nav-full-text">Skin </span>Downloader
+          </span>
+        </Link>
+        <Link
+          href="/skins"
+          className={isSkins ? "active" : ""}
+          aria-current={isSkins ? "page" : undefined}
+        >
+          <Compass size={14} className="nav-icon" />
+          <span>
+            Explore<span className="nav-full-text"> Skins</span>
           </span>
         </Link>
       </div>

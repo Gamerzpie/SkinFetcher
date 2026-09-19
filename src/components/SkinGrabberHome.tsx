@@ -18,6 +18,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { RotatableSkinViewer } from "@/components/RotatableSkinViewer";
 import { AdBanner } from "@/components/AdBanner";
+import { downloadImage } from "@/lib/download";
 
 export type PlayerResult = {
   username: string;
@@ -225,12 +226,20 @@ export function SkinGrabberHome() {
                 <div><dt>UUID</dt><dd>{player.uuid}</dd></div>
               </dl>
               <div className="action-grid">
-                <a className="action-button primary-action" href={player.skinUrl} download={`${player.username}-skin.png`} target="_blank" rel="noreferrer">
+                <button
+                  className="action-button primary-action cursor-pointer"
+                  onClick={() => downloadImage(player.skinUrl, `${player.username}-skin.png`)}
+                  type="button"
+                >
                   <ArrowDownToLine size={18} /> PNG Skin
-                </a>
-                <a className="action-button" href={player.previewUrl} download={`${player.username}-preview.png`} target="_blank" rel="noreferrer">
+                </button>
+                <button
+                  className="action-button cursor-pointer"
+                  onClick={() => downloadImage(player.previewUrl, `${player.username}-preview.png`)}
+                  type="button"
+                >
                   <ArrowDownToLine size={18} /> HD Preview
-                </a>
+                </button>
                 <button className="action-button" onClick={copyUsername} type="button">
                   {copied ? <Check size={18} /> : <Copy size={18} />} {copied ? "Copied" : "Copy username"}
                 </button>

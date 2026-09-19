@@ -20,6 +20,7 @@ import {
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { RotatableSkinViewer } from "@/components/RotatableSkinViewer";
+import { downloadImage } from "@/lib/download";
 
 interface SkinDetails {
   username: string;
@@ -40,8 +41,18 @@ export function SkinDownloaderView() {
   const [copiedUuid, setCopiedUuid] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
   const [guideTab, setGuideTab] = useState<"java" | "bedrock">("java");
+  const [downloadingFormat, setDownloadingFormat] = useState<string | null>(null);
 
   const cleanInput = useMemo(() => username.trim(), [username]);
+
+  async function handleDownload(url: string, filename: string, formatKey: string) {
+    setDownloadingFormat(formatKey);
+    try {
+      await downloadImage(url, filename);
+    } finally {
+      setTimeout(() => setDownloadingFormat(null), 1200);
+    }
+  }
 
   async function fetchSkin(name: string) {
     const query = name.trim();
@@ -253,16 +264,18 @@ export function SkinDownloaderView() {
                   </span>
 
                   {/* 1. Official Skin File */}
-                  <a
-                    href={player.skinUrl}
-                    download={`${player.username}-skin.png`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold transition-all shadow-lg group cursor-pointer"
+                  <button
+                    type="button"
+                    onClick={() => handleDownload(player.skinUrl, `${player.username}-skin.png`, "skin")}
+                    className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.99] text-black font-semibold transition-all shadow-lg group cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-xl bg-black/10">
-                        <ArrowDownToLine size={20} />
+                        {downloadingFormat === "skin" ? (
+                          <Check size={20} className="text-black" />
+                        ) : (
+                          <ArrowDownToLine size={20} />
+                        )}
                       </div>
                       <div className="text-left">
                         <div className="text-sm font-bold">Standard Skin File (.PNG)</div>
@@ -272,21 +285,23 @@ export function SkinDownloaderView() {
                       </div>
                     </div>
                     <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/15">
-                      Download
+                      {downloadingFormat === "skin" ? "Downloaded!" : "Download"}
                     </span>
-                  </a>
+                  </button>
 
                   {/* 2. HD Isometric Render */}
-                  <a
-                    href={player.previewUrl}
-                    download={`${player.username}-hd-render.png`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white transition-all border border-white/10 group cursor-pointer"
+                  <button
+                    type="button"
+                    onClick={() => handleDownload(player.previewUrl, `${player.username}-hd-render.png`, "hd")}
+                    className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white/10 hover:bg-white/15 active:scale-[0.99] text-white transition-all border border-white/10 group cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-xl bg-white/5 text-emerald-400">
-                        <ImageIcon size={20} />
+                        {downloadingFormat === "hd" ? (
+                          <Check size={20} className="text-emerald-400" />
+                        ) : (
+                          <ImageIcon size={20} />
+                        )}
                       </div>
                       <div className="text-left">
                         <div className="text-sm font-bold">HD 3D Body Render</div>
@@ -296,25 +311,33 @@ export function SkinDownloaderView() {
                       </div>
                     </div>
                     <span className="text-xs font-medium uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/10">
-                      Download
+                      {downloadingFormat === "hd" ? "Downloaded!" : "Download"}
                     </span>
-                  </a>
+                  </button>
 
                   {/* 3. Avatar Face & Head */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <a
-                      href={`https://mc-heads.net/avatar/${encodeURIComponent(player.username)}/128`}
-                      download={`${player.username}-head.png`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/5 transition-colors cursor-pointer"
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleDownload(
+                          `https://mc-heads.net/avatar/${encodeURIComponent(player.username)}/128`,
+                          `${player.username}-head.png`,
+                          "head"
+                        )
+                      }
+                      className="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 active:scale-[0.99] text-white border border-white/5 transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-2.5">
                         <User size={16} className="text-emerald-400" />
                         <span className="text-xs font-medium">Head Icon (128px)</span>
                       </div>
-                      <ArrowDownToLine size={14} className="text-neutral-400" />
-                    </a>
+                      {downloadingFormat === "head" ? (
+                        <Check size={14} className="text-emerald-400" />
+                      ) : (
+                        <ArrowDownToLine size={14} className="text-neutral-400" />
+                      )}
+                    </button>
 
                     <button
                       type="button"

@@ -352,16 +352,31 @@ img {
   opacity: 0.85;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 580px) {
   .nav-full-text {
     display: none;
   }
   .brand-text {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
+  }
+  .nav-links {
+    gap: 3px;
   }
   .nav-links a {
-    padding: 6px 10px;
-    font-size: 0.74rem;
+    padding: 7px 9px;
+    font-size: 0.76rem;
+    gap: 4px;
+    min-height: 34px;
+  }
+}
+
+@media (max-width: 360px) {
+  .brand-text {
+    display: none;
+  }
+  .nav-links a {
+    padding: 6px 8px;
+    font-size: 0.72rem;
   }
 }
 
